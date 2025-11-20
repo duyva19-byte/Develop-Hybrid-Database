@@ -1,0 +1,26 @@
+CREATE DATABASE IF NOT EXISTS energy_trading
+USE energy_trading;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  eth_address VARCHAR(42) NOT NULL ,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS trades (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  seller_id INT NOT NULL,
+  buyer_id  INT NOT NULL,
+  energy_amount_kwh DECIMAL(10,2) NOT NULL,
+  price_per_kwh     DECIMAL(10,2) NOT NULL,
+  status ENUM('PENDING','ONCHAIN','FAILED') DEFAULT 'PENDING',
+  tx_hash VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+select * from trades limit 10
+--------------------------------------Chạy cái này khi có d/c ví của metamask r nhé thay vào 0x1...-------
+INSERT INTO users (eth_address, name)
+VALUES
+('0x1cc4603395b6b2edcd59a8869446b780c95fc669', 'Seller A'),
+('0x1cc4603395b6b2edcd59a8869446b780c95fc669',  'Buyer B');
